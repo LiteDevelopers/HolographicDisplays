@@ -32,6 +32,11 @@ class V2TextLine extends BaseTextHologramLine implements TextLine, V2TouchableLi
     }
 
     @Override
+    public boolean isJsonComponent() {
+        return false;
+    }
+
+    @Override
     public void setTouchHandler(TouchHandler touchHandler) {
         this.touchHandler = touchHandler;
     }

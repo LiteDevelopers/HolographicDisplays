@@ -31,8 +31,8 @@ class Viewer {
         packetGroup.sendTo(player.getBukkitPlayer());
     }
 
-    public void sendIndividualPackets(IndividualTextPacketGroup packetGroup, String text) {
-        packetGroup.sendTo(player.getBukkitPlayer(), text);
+    public void sendIndividualPackets(IndividualTextPacketGroup packetGroup, String text, boolean json) {
+        packetGroup.sendTo(player.getBukkitPlayer(), text, json);
     }
 
 }

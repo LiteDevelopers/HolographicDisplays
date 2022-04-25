@@ -14,19 +14,21 @@ import java.util.Objects;
 class TextLineViewer extends Viewer {
 
     private final DisplayText displayText;
+    private final boolean json;
 
     private String individualText;
     private String lastSentText;
 
-    TextLineViewer(CachedPlayer player, DisplayText displayText) {
+    TextLineViewer(CachedPlayer player, DisplayText displayText, boolean json) {
         super(player);
         this.displayText = displayText;
+        this.json = json;
     }
 
     public void sendTextPackets(IndividualTextPacketGroup packets) {
         String text = getOrComputeText();
         this.lastSentText = text;
-        sendIndividualPackets(packets, text);
+        sendIndividualPackets(packets, text, json);
     }
 
     public void sendTextPacketsIfNecessary(IndividualTextPacketGroup packets) {
@@ -35,7 +37,7 @@ class TextLineViewer extends Viewer {
             return; // Avoid sending unnecessary packets
         }
         this.lastSentText = text;
-        sendIndividualPackets(packets, text);
+        sendIndividualPackets(packets, text, json);
     }
 
     private @Nullable String getOrComputeText() {

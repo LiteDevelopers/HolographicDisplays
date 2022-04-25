@@ -23,6 +23,11 @@ public class InternalTextHologramLine extends BaseTextHologramLine implements In
     }
 
     @Override
+    public boolean isJsonComponent() {
+        return false;
+    }
+
+    @Override
     public String getSerializedConfigValue() {
         return serializedConfigValue;
     }

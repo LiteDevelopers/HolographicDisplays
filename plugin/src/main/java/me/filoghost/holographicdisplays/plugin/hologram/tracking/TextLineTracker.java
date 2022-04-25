@@ -5,6 +5,7 @@
  */
 package me.filoghost.holographicdisplays.plugin.hologram.tracking;
 
+import me.filoghost.holographicdisplays.api.beta.hologram.line.JsonComponentHologramLine;
 import me.filoghost.holographicdisplays.nms.common.IndividualTextPacketGroup;
 import me.filoghost.holographicdisplays.nms.common.NMSManager;
 import me.filoghost.holographicdisplays.nms.common.entity.TextNMSPacketEntity;
@@ -53,7 +54,7 @@ public class TextLineTracker extends ClickableLineTracker<TextLineViewer> {
 
     @Override
     protected TextLineViewer createViewer(CachedPlayer cachedPlayer) {
-        return new TextLineViewer(cachedPlayer, displayText);
+        return new TextLineViewer(cachedPlayer, displayText, line.isJsonComponent());
     }
 
     @MustBeInvokedByOverriders

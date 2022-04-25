@@ -20,35 +20,35 @@ class VersionTextNMSPacketEntity implements TextNMSPacketEntity {
     }
 
     @Override
-    public PacketGroup newSpawnPackets(PositionCoordinates position, String text) {
+    public PacketGroup newSpawnPackets(PositionCoordinates position, String text, boolean json) {
         return EntityLivingSpawnNMSPacket.builder(armorStandID, EntityTypeID.ARMOR_STAND, position, ARMOR_STAND_Y_OFFSET)
                 .setArmorStandMarker()
-                .setCustomName(text)
+                .setCustomName(text, json)
                 .build();
     }
 
     @Override
     public IndividualTextPacketGroup newSpawnPackets(PositionCoordinates position) {
         return IndividualTextPacketGroup.of(
-                (String text) -> EntityLivingSpawnNMSPacket.builder(armorStandID, EntityTypeID.ARMOR_STAND, position, ARMOR_STAND_Y_OFFSET)
+                (String text, boolean json) -> EntityLivingSpawnNMSPacket.builder(armorStandID, EntityTypeID.ARMOR_STAND, position, ARMOR_STAND_Y_OFFSET)
                         .setArmorStandMarker()
-                        .setCustomName(text)
+                        .setCustomName(text, json)
                         .build()
         );
     }
 
     @Override
-    public PacketGroup newChangePackets(String text) {
+    public PacketGroup newChangePackets(String text, boolean json) {
         return EntityMetadataNMSPacket.builder(armorStandID)
-                .setCustomName(text)
+                .setCustomName(text, json)
                 .build();
     }
 
     @Override
     public IndividualTextPacketGroup newChangePackets() {
         return IndividualTextPacketGroup.of(
-                (String text) -> EntityMetadataNMSPacket.builder(armorStandID)
-                        .setCustomName(text)
+                (String text, boolean json) -> EntityMetadataNMSPacket.builder(armorStandID)
+                        .setCustomName(text, json)
                         .build()
         );
     }

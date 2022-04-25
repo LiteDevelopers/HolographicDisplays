@@ -9,6 +9,7 @@ import me.filoghost.fcommons.Preconditions;
 import me.filoghost.holographicdisplays.api.beta.hologram.HologramLines;
 import me.filoghost.holographicdisplays.api.beta.hologram.line.HologramLine;
 import me.filoghost.holographicdisplays.api.beta.hologram.line.ItemHologramLine;
+import me.filoghost.holographicdisplays.api.beta.hologram.line.JsonComponentHologramLine;
 import me.filoghost.holographicdisplays.api.beta.hologram.line.TextHologramLine;
 import me.filoghost.holographicdisplays.plugin.hologram.base.BaseHologramLines;
 import org.bukkit.inventory.ItemStack;
@@ -34,6 +35,15 @@ class APIHologramLines extends BaseHologramLines<APIHologramLine> implements Hol
     }
 
     @Override
+    public @NotNull JsonComponentHologramLine appendComponent(@Nullable String json) {
+        checkNotDeleted();
+
+        APIJsonComponentHologramLine line = new APIJsonComponentHologramLine(hologram, json);
+        super.add(line);
+        return line;
+    }
+
+    @Override
     public @NotNull ItemHologramLine appendItem(@Nullable ItemStack itemStack) {
         checkNotDeleted();
 
@@ -47,6 +57,15 @@ class APIHologramLines extends BaseHologramLines<APIHologramLine> implements Hol
         checkNotDeleted();
 
         APITextHologramLine line = new APITextHologramLine(hologram, text);
+        super.insert(beforeIndex, line);
+        return line;
+    }
+
+    @Override
+    public @NotNull JsonComponentHologramLine insertComponent(int beforeIndex, @Nullable String json) {
+        checkNotDeleted();
+
+        APIJsonComponentHologramLine line = new APIJsonComponentHologramLine(hologram, json);
         super.insert(beforeIndex, line);
         return line;
     }

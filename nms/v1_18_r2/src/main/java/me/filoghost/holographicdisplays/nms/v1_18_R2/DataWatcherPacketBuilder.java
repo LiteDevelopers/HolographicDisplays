@@ -35,15 +35,19 @@ abstract class DataWatcherPacketBuilder<T> {
         return this;
     }
 
-    DataWatcherPacketBuilder<T> setCustomName(String customName) {
-        packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME, getCustomNameDataWatcherValue(customName));
+    DataWatcherPacketBuilder<T> setCustomName(String customName, boolean json) {
+        packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME, getCustomNameDataWatcherValue(customName, json));
         packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME_VISIBILITY, !Strings.isEmpty(customName));
         return this;
     }
 
-    private Optional<IChatBaseComponent> getCustomNameDataWatcherValue(String customName) {
+    private Optional<IChatBaseComponent> getCustomNameDataWatcherValue(String customName, boolean json) {
         customName = Strings.truncate(customName, MAX_CUSTOM_NAME_LENGTH);
         if (!Strings.isEmpty(customName)) {
+            if (json) {
+                return Optional.of(CraftChatMessage.fromJSONOrString(customName));
+            }
+
             return Optional.of(CraftChatMessage.fromString(customName, false, true)[0]);
         } else {
             return Optional.empty();

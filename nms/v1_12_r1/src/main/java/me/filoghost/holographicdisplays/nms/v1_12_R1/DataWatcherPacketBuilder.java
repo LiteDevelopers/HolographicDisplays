@@ -5,9 +5,14 @@
  */
 package me.filoghost.holographicdisplays.nms.v1_12_R1;
 
+import com.google.gson.JsonParseException;
 import me.filoghost.fcommons.Strings;
+import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import org.bukkit.craftbukkit.v1_12_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_12_R1.util.CraftChatMessage;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.Optional;
 
 abstract class DataWatcherPacketBuilder<T> {
 
@@ -31,10 +36,7 @@ abstract class DataWatcherPacketBuilder<T> {
         return this;
     }
 
-    DataWatcherPacketBuilder<T> setCustomName(String customName) {
-        if (customName == null) {
-            customName = "";
-        }
+    DataWatcherPacketBuilder<T> setCustomName(String customName, boolean json) {
         packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME, Strings.truncate(customName, MAX_CUSTOM_NAME_LENGTH));
         packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME_VISIBILITY, !Strings.isEmpty(customName));
         return this;

@@ -5,6 +5,7 @@
  */
 package me.filoghost.holographicdisplays.nms.v1_13_R2;
 
+import com.google.gson.JsonParseException;
 import me.filoghost.fcommons.Strings;
 import net.minecraft.server.v1_13_R2.IChatBaseComponent;
 import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
@@ -35,15 +36,23 @@ abstract class DataWatcherPacketBuilder<T> {
         return this;
     }
 
-    DataWatcherPacketBuilder<T> setCustomName(String customName) {
-        packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME, getCustomNameDataWatcherValue(customName));
+    DataWatcherPacketBuilder<T> setCustomName(String customName, boolean json) {
+        packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME, getCustomNameDataWatcherValue(customName, json));
         packetByteBuffer.writeDataWatcherEntry(DataWatcherKey.CUSTOM_NAME_VISIBILITY, !Strings.isEmpty(customName));
         return this;
     }
 
-    private Optional<IChatBaseComponent> getCustomNameDataWatcherValue(String customName) {
+    private Optional<IChatBaseComponent> getCustomNameDataWatcherValue(String customName, boolean json) {
         customName = Strings.truncate(customName, MAX_CUSTOM_NAME_LENGTH);
         if (!Strings.isEmpty(customName)) {
+            if (json) {
+                try {
+                    return Optional.ofNullable(IChatBaseComponent.ChatSerializer.b(customName));
+                } catch (JsonParseException var2) {
+                    return Optional.empty();
+                }
+            }
+
             return Optional.of(CraftChatMessage.fromString(customName, false)[0]);
         } else {
             return Optional.empty();

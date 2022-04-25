@@ -28,6 +28,11 @@ class APITextHologramLine extends BaseTextHologramLine implements TextHologramLi
     }
 
     @Override
+    public boolean isJsonComponent() {
+        return false;
+    }
+
+    @Override
     public void setClickListener(@Nullable HologramLineClickListener clickListener) {
         checkNotDeleted();
 

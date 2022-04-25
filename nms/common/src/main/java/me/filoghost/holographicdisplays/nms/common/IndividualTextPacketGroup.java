@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 
 public interface IndividualTextPacketGroup {
 
-    void sendTo(Player player, String text);
+    void sendTo(Player player, String text, boolean json);
 
     static IndividualTextPacketGroup of(IndividualTextPacketGroupFactory packet) {
         return new IndividualTextPacketGroup1(packet);
@@ -21,11 +21,10 @@ public interface IndividualTextPacketGroup {
         return new IndividualTextPacketGroup2(packet1, packet2);
     }
 
-
     @FunctionalInterface
     interface IndividualTextPacketGroupFactory {
 
-        PacketGroup createPacket(String text);
+        PacketGroup createPacket(String text, boolean json);
 
     }
 

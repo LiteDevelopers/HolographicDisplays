@@ -7,6 +7,7 @@ package me.filoghost.holographicdisplays.api.beta.hologram;
 
 import me.filoghost.holographicdisplays.api.beta.hologram.line.HologramLine;
 import me.filoghost.holographicdisplays.api.beta.hologram.line.ItemHologramLine;
+import me.filoghost.holographicdisplays.api.beta.hologram.line.JsonComponentHologramLine;
 import me.filoghost.holographicdisplays.api.beta.hologram.line.TextHologramLine;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -29,6 +30,15 @@ public interface HologramLines {
     @NotNull TextHologramLine appendText(@Nullable String text);
 
     /**
+     * Adds a new vanilla component line at the end.
+     *
+     * @param json the content of the line, see {@link JsonComponentHologramLine#setJson(String)}
+     * @return the created line
+     * @since 1
+     */
+    @NotNull JsonComponentHologramLine appendComponent(@Nullable String json);
+
+    /**
      * Adds a new item line at the end.
      *
      * @param itemStack the content of the line, see {@link ItemHologramLine#setItemStack(ItemStack)}
@@ -47,6 +57,17 @@ public interface HologramLines {
      * @since 1
      */
     @NotNull TextHologramLine insertText(int beforeIndex, @Nullable String text);
+
+    /**
+     * Inserts a new vanilla component line before the given index.
+     *
+     * @param beforeIndex the index before which the line is inserted, 0 to insert as first
+     * @param json the content of the line, see {@link JsonComponentHologramLine#setJson(String)}
+     * @return the created line
+     * @throws IndexOutOfBoundsException if the index is out of range (index &lt; 0 || index &gt;= size())
+     * @since 1
+     */
+    @NotNull JsonComponentHologramLine insertComponent(int beforeIndex, @Nullable String json);
 
     /**
      * Inserts a new item line before the given index.

@@ -22,9 +22,9 @@ class IndividualTextPacketGroupImpl {
         }
 
         @Override
-        public void sendTo(Player player, String text) {
+        public void sendTo(Player player, String text, boolean json) {
             if (packet == null || !Objects.equals(lastPacketText, text)) {
-                packet = packetFactory.createPacket(text);
+                packet = packetFactory.createPacket(text, json);
                 lastPacketText = text;
             }
             packet.sendTo(player);
@@ -42,9 +42,9 @@ class IndividualTextPacketGroupImpl {
         }
 
         @Override
-        public void sendTo(Player player, String text) {
+        public void sendTo(Player player, String text, boolean json) {
             packet1.sendTo(player);
-            super.sendTo(player, text);
+            super.sendTo(player, text, json);
         }
 
     }

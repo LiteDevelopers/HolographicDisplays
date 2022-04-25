@@ -21,6 +21,8 @@ public abstract class BaseTextHologramLine extends BaseClickableHologramLine {
 
     public abstract boolean isAllowPlaceholders();
 
+    public abstract boolean isJsonComponent();
+
     @Override
     protected TextLineTracker createTracker(LineTrackerManager trackerManager) {
         return trackerManager.startTracking(this);
