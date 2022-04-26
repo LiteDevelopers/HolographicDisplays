@@ -14,6 +14,10 @@ import me.filoghost.holographicdisplays.plugin.internal.hologram.InternalHologra
 import me.filoghost.holographicdisplays.plugin.lib.nbt.parser.MojangsonParseException;
 import me.filoghost.holographicdisplays.plugin.lib.nbt.parser.MojangsonParser;
 import me.filoghost.holographicdisplays.plugin.placeholder.parsing.StringWithPlaceholders;
+import me.filoghost.holographicdisplays.plugin.util.NMSVersion;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.gson.GsonComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -22,6 +26,8 @@ import java.util.Locale;
 
 public class HologramLineParser {
 
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    private static final GsonComponentSerializer GSON = GsonComponentSerializer.gson();
     private static final String ICON_PREFIX = "icon:";
 
     public static InternalHologramLine parseLine(InternalHologram hologram, String serializedLine) throws HologramLoadException {
@@ -32,14 +38,21 @@ public class HologramLineParser {
             ItemStack icon = parseItemStack(serializedIcon);
             hologramLine = hologram.createItemLine(icon, serializedLine);
 
-        } else {
+            return hologramLine;
+        }
+
+        if (NMSVersion.getCurrent().isLegacy()) {
             String displayText = DisplayFormat.apply(serializedLine, false);
             // Apply colors only outside placeholders
             displayText = StringWithPlaceholders.withEscapes(displayText).replaceStrings(Colors::colorize);
-            hologramLine = hologram.createTextLine(displayText, serializedLine);
+            return hologram.createTextLine(displayText, serializedLine);
         }
 
-        return hologramLine;
+        String displayText = DisplayFormat.apply(serializedLine, false);
+        Component deserialized = MINI_MESSAGE.deserialize(displayText);
+        String serialized = GSON.serialize(deserialized);
+
+        return hologram.createJsonComponentLine(serialized, serializedLine);
     }
 
 

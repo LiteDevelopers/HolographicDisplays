@@ -128,6 +128,24 @@
             <groupId>me.filoghost.fcommons</groupId>
             <artifactId>fcommons</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bukkit</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-api</artifactId>
+            <version>4.10.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-text-minimessage</artifactId>
+            <version>4.10.1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -208,6 +226,7 @@
                             <include>org.bstats</include>
                             <include>me.filoghost.updatechecker</include>
                             <include>me.filoghost.fcommons</include>
+                            <include>net.kyori</include>
                         </includes>
                     </artifactSet>
                     <filters>
@@ -230,6 +249,10 @@
                         <relocation>
                             <pattern>me.filoghost.fcommons</pattern>
                             <shadedPattern>me.filoghost.holographicdisplays.plugin.lib.fcommons</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori</pattern>
+                            <shadedPattern>me.filoghost.holographicdisplays.plugin.lib.net.kyori</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

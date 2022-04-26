@@ -44,7 +44,7 @@ class APIJsonComponentHologramLine extends BaseTextHologramLine implements JsonC
 
     @Override
     public boolean isAllowPlaceholders() {
-        return false;
+        return true;
     }
 
     @Override

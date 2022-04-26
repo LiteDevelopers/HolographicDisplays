@@ -37,6 +37,10 @@ public class InternalHologram extends BaseHologram {
         return new InternalTextHologramLine(this, text, serializedConfigValue);
     }
 
+    public InternalJsonComponentHologramLine createJsonComponentLine(String text, String serializedConfigValue) {
+        return new InternalJsonComponentHologramLine(this, text, serializedConfigValue);
+    }
+
     public InternalItemHologramLine createItemLine(ItemStack icon, String serializedConfigValue) {
         return new InternalItemHologramLine(this, icon, serializedConfigValue);
     }
