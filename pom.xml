@@ -292,7 +292,6 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>3.3.0</version>
                     <configuration>
                         <sourceFileIncludes>
                             <include>**/com/gmail/filoghost/holographicdisplays/api/**/*.java</include>
@@ -312,7 +311,18 @@
                                 <location>${basedir}/javadoc/spigot</location>
                             </offlineLink>
                         </offlineLinks>
+                        <aggregate>true</aggregate>
                     </configuration>
+                    <inherited>false</inherited>
+                    <executions>
+                        <execution>
+                            <id>aggregate</id>
+                            <goals>
+                                <goal>aggregate-jar</goal>
+                            </goals>
+                            <phase>package</phase>
+                        </execution>
+                    </executions>
                 </plugin>
 
                 <plugin>
@@ -423,23 +433,6 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.4</version>
-                <inherited>false</inherited>
-                <configuration>
-                    <aggregate>true</aggregate>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>aggregate</id>
-                        <goals>
-                            <goal>aggregate-jar</goal>
-                        </goals>
-                        <phase>package</phase>
                     </execution>
                 </executions>
             </plugin>
